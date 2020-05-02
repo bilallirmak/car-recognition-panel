@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
-
+import {withRouter} from "react-router-dom";
 import {Menu} from 'antd';
-import {
-    AppstoreOutlined,
-} from '@ant-design/icons';
+import {AppstoreOutlined} from '@ant-design/icons';
+
 import {inject, observer} from "mobx-react";
 
 const {SubMenu} = Menu;
@@ -37,23 +36,32 @@ class Sider extends Component {
 
     render() {
         const {SocketStore} = this.props
-
+        console.log(this.props)
         return (
             <Menu
-                defaultSelectedKeys={['1']}
+                onClick={({key}) => {
+                    SocketStore.route(key, this.props.history)
+                }}
+                defaultSelectedKeys={localStorage.hasOwnProperty('key') ? [localStorage.getItem('key')]: ['1']}
                 mode="inline"
                 openKeys={this.state.openKeys}
                 onOpenChange={this.onOpenChange}
                 style={{width: 256, margin: 50}}
             >
                 <Menu.Item key="1">
-                    Genel
+                    {/*<Link className="nav-text" to="/">*/}
+                        Genel
+                    {/*</Link>*/}
                 </Menu.Item>
                 <SubMenu key="sub2" icon={<AppstoreOutlined/>} title="Markalar">
                     {
                         SocketStore.data.map((item, key) => {
                             let first = item.make.charAt(0)
-                            return <Menu.Item key={item._id}>{item.make.replace(first, first.toUpperCase())}</Menu.Item>
+                            return <Menu.Item key={item._id}>
+                                {/*<Link className="nav-text" to={'/' + item._id}>*/}
+                                    {item.make.replace(first, first.toUpperCase())}
+                                {/*</Link>*/}
+                            </Menu.Item>
                         })
                     }
                     {/*<Menu.Item key="2">Option 5</Menu.Item>*/}
@@ -65,4 +73,4 @@ class Sider extends Component {
     }
 }
 
-export default Sider
+export default withRouter(Sider)

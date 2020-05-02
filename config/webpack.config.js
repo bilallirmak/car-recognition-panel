@@ -28,7 +28,7 @@ const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
 // Some apps do not need the benefits of saving a web request, so not inlining the chunk
-// makes for a smoother build process.
+// Makes for a smoother build process.
 const shouldInlineRuntimeChunk = process.env.INLINE_RUNTIME_CHUNK !== 'false';
 
 // Check if TypeScript is setup
@@ -48,7 +48,7 @@ module.exports = function(webpackEnv) {
 
   // Webpack uses `publicPath` to determine where the app is being served from.
   // It requires a trailing slash, or the file assets will get an incorrect path.
-  // In development, we always serve from the root. This makes config easier.
+  // In development, we always serve from the root. This Makes config easier.
   const publicPath = isEnvProduction
     ? paths.servedPath
     : isEnvDevelopment && '/';
@@ -446,7 +446,7 @@ module.exports = function(webpackEnv) {
                 'sass-loader'
               ),
             },
-            // "file" loader makes sure those assets get served by WebpackDevServer.
+            // "file" loader Makes sure those assets get served by WebpackDevServer.
             // When you `import` an asset, you get its (virtual) filename.
             // In production, they would get copied to the `build` folder.
             // This loader doesn't use a "test" so it will catch all modules
@@ -524,7 +524,7 @@ module.exports = function(webpackEnv) {
       isEnvDevelopment && new CaseSensitivePathsPlugin(),
       // If you require a missing module and then `npm install` it, you still have
       // to restart the development server for Webpack to discover it. This plugin
-      // makes the discovery automatic so you don't have to restart.
+      // Makes the discovery automatic so you don't have to restart.
       // See https://github.com/facebook/create-react-app/issues/186
       isEnvDevelopment &&
         new WatchMissingNodeModulesPlugin(paths.appNodeModules),

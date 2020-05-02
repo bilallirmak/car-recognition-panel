@@ -1,17 +1,17 @@
 import React from 'react';
-// import Charts from './components/charts';
-import Sider from './components/AppMenu';
+import AppRouter from './Router';
 
 //mobx store
 import store from './store';
 import {Provider} from 'mobx-react';
 
+// const {Content} = Layout;
+
 function App() {
     return (
         <Provider {...store}>
-            <div className="App">
-                <Sider/>
-            </div>
+
+            <AppRouter/>
         </Provider>
 
     );

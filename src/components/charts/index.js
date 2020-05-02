@@ -24,6 +24,7 @@ class Charts extends Component {
                         },
                     ]}
                     layout={{
+                        width: 500, height: 500, margin: 0, padding: 0,
                         title: 'PLOT',
                         xaxis: {
                             autotick: false,
