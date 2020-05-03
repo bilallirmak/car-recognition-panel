@@ -10,7 +10,6 @@ import {Provider} from 'mobx-react';
 function App() {
     return (
         <Provider {...store}>
-
             <AppRouter/>
         </Provider>
 

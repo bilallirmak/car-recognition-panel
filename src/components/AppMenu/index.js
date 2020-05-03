@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {withRouter} from "react-router-dom";
-import {Menu} from 'antd';
+import {Menu, Spin} from 'antd';
 import {AppstoreOutlined} from '@ant-design/icons';
 
 import {inject, observer} from "mobx-react";
@@ -38,6 +38,7 @@ class Sider extends Component {
         const {SocketStore} = this.props
         console.log(this.props)
         return (
+            SocketStore.data === null ? <Spin/>:
             <Menu
                 onClick={({key}) => {
                     SocketStore.route(key, this.props.history)
@@ -55,11 +56,12 @@ class Sider extends Component {
                 </Menu.Item>
                 <SubMenu key="sub2" icon={<AppstoreOutlined/>} title="Markalar">
                     {
-                        SocketStore.data.map((item, key) => {
-                            let first = item.make.charAt(0)
-                            return <Menu.Item key={item._id}>
+                        SocketStore.data[0].files.map((item, key) => {
+                            // let first = item.make.charAt(0)
+                            return <Menu.Item key={item._id.make}>
                                 {/*<Link className="nav-text" to={'/' + item._id}>*/}
-                                    {item.make.replace(first, first.toUpperCase())}
+                                {item._id.make}
+                                {/*    {item.make.replace(first, first.toUpperCase())}*/}
                                 {/*</Link>*/}
                             </Menu.Item>
                         })
