@@ -19,16 +19,34 @@ class Homepage extends Component {
                           tabBarStyle={{display: "flex", justifyContent: "center", flexDirection: "row"}}
                         // style={{flex: 1, display: "flex", justifyContent: "center", flexDirection: "row"}}
                     >
-                        <TabPane tab="Araba Sayıları" key="1">
+                        <TabPane tab="Marka Sayıları" key="1">
                             <Chart
+                                type='bar'
                                 option='make_numbers'
-                                title="Araba Sayıları"
+                                title="Marka Sayıları"
                             />
                         </TabPane>
                         <TabPane tab="Model Sayıları" key="2">
                             <Chart
+                                type='bar'
                                 option='model_numbers'
                                 title="Model Sayıları"
+                            />
+                        </TabPane>
+                        <TabPane tab="Renk dağılımı" key="3">
+                            <Chart
+                                type='pie'
+                                option='color_numbers'
+                                title="Renk dağılımı"
+                                hole = {.4}
+                            />
+                        </TabPane>
+                        <TabPane tab="Şehir dağılımı" key="4">
+                            <Chart
+                                type='pie'
+                                option='license_plate_numbers'
+                                title="Renk dağılımı"
+                                hole = {.4}
                             />
                         </TabPane>
                     </Tabs>

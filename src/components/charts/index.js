@@ -25,7 +25,7 @@ class Charts extends Component {
 
 
     render() {
-        const {SocketStore, title} = this.props
+        const {SocketStore, title, type, hole} = this.props
         const {x, y} = this.state
         return (
             SocketStore.data === null ?
@@ -36,12 +36,16 @@ class Charts extends Component {
                             {
                                 x,
                                 y,
-                                type: 'bar',
+                                values: x,
+                                labels: y,
+                                hole,
+                                type,
                                 width: 0.7,
                                 mode: 'lines+markers',
                                 textposition: 'top center',
                                 marker: {
                                     color: 'rgb(158,202,225)',
+                                    colors: y,
                                     opacity: 0.6,
                                     line: {
                                         color: 'rgb(8,48,107)',

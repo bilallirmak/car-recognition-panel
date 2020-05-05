@@ -2,6 +2,7 @@ import {action, configure, observable, runInAction} from "mobx";
 import io from "socket.io-client";
 import axios from 'axios';
 import {API_BASE} from '../constants';
+import provinces from '../provinces';
 
 
 configure({
@@ -61,10 +62,6 @@ class SocketStore {
                 x.push(this.data[0].files[i]._id.make)
                 y.push(this.data[0].files[i].total_car)
             }
-            // runInAction(() => {
-            //     this.x = x
-            //     this.y = y
-            // })
 
             return {x, y}
         },
@@ -77,16 +74,40 @@ class SocketStore {
             for (let i = 0; i < flat_models_set_array.length; i++) {
                 const filter_flat_models = flat_models.filter(item => item === flat_models_set_array[i])
                 const make_obj = this.data[0].files.find(item => item.models.includes(flat_models_set_array[i]))
-                console.log(make_obj, "make_obj")
                 x.push(flat_models_set_array[i]+"("+make_obj._id.make+")")
                 y.push(filter_flat_models.length)
             }
-            // runInAction(() => {
-            //     this.x = x
-            //     this.y = y
-            // })
             return {x, y}
-        }
+        },
+
+        color_numbers: () => {
+            let x = []
+            let y = []
+            let flat_colors = this.data[0].colors.flat()
+            let flat_colors_set = new Set(flat_colors)
+            let flat_colors_set_array = [...flat_colors_set]
+            for (let i = 0; i < flat_colors_set_array.length; i++) {
+                const filter_flat_colors= flat_colors.filter(item => item === flat_colors_set_array[i])
+                // const make_obj = this.data[0].files.find(item => item.models.includes(flat_colors_set_array[i]))
+                y.push(flat_colors_set_array[i])
+                x.push(filter_flat_colors.length)
+            }
+            return {x, y}
+        },
+        license_plate_numbers: () => {
+            let x = []
+            let y = []
+            let flat_license_plates= this.data[0].license_plates.flat()
+            let flat_license_plates_set = new Set(flat_license_plates)
+            let flat_license_plates_set_array = [...flat_license_plates_set]
+            for (let i = 0; i < flat_license_plates_set_array.length; i++) {
+                const filter_flat_license_plates = flat_license_plates.filter(item => item === flat_license_plates_set_array[i])
+                y.push(provinces[flat_license_plates_set_array[i]])
+                x.push(filter_flat_license_plates.length)
+            }
+            return {x, y}
+        },
+
 
     }
 
