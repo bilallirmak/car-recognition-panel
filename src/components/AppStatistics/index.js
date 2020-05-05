@@ -51,7 +51,7 @@ class AppStatistics extends Component {
                                 textAlign: "center",
 
                             }}
-                            title="Farklı model sayısı" value={SocketStore.data[0].models.length}
+                            title="Farklı model sayısı" value={new Set(SocketStore.data[0].models.flat()).size}
 
                         />
                     </div>
@@ -65,7 +65,7 @@ class AppStatistics extends Component {
                             textAlign: "center",
 
                         }}
-                        title="Farklı renk sayısı" value={SocketStore.data[0].colors.length}
+                        title="Farklı renk sayısı" value={new Set(SocketStore.data[0].colors.flat()).size}
 
                     />
                 </div>
