@@ -36,41 +36,32 @@ class Sider extends Component {
 
     render() {
         const {SocketStore} = this.props
-        console.log(this.props)
         return (
-            SocketStore.data === null ? <Spin/>:
-            <Menu
-                onClick={({key}) => {
-                    SocketStore.route(key, this.props.history)
-                }}
-                defaultSelectedKeys={localStorage.hasOwnProperty('key') ? [localStorage.getItem('key')]: ['1']}
-                mode="inline"
-                openKeys={this.state.openKeys}
-                onOpenChange={this.onOpenChange}
-                style={{width: 256, margin: 50}}
-            >
-                <Menu.Item key="1">
-                    {/*<Link className="nav-text" to="/">*/}
+            SocketStore.data === null ? <Spin/> :
+                <Menu
+                    onClick={({key}) => {
+                        SocketStore.route(key, this.props.history)
+                    }}
+                    defaultSelectedKeys={localStorage.hasOwnProperty('key') ? [localStorage.getItem('key')] : ['1']}
+                    mode="inline"
+                    openKeys={this.state.openKeys}
+                    onOpenChange={this.onOpenChange}
+                    style={{width: 256, margin: 50}}
+                >
+                    <Menu.Item key="1">
                         Genel
-                    {/*</Link>*/}
-                </Menu.Item>
-                <SubMenu key="sub2" icon={<AppstoreOutlined/>} title="Markalar">
-                    {
-                        SocketStore.data[0].files.map((item, key) => {
-                            // let first = item.make.charAt(0)
-                            return <Menu.Item key={item._id.make}>
-                                {/*<Link className="nav-text" to={'/' + item._id}>*/}
-                                {item._id.make}
-                                {/*    {item.make.replace(first, first.toUpperCase())}*/}
-                                {/*</Link>*/}
-                            </Menu.Item>
-                        })
-                    }
-                    {/*<Menu.Item key="2">Option 5</Menu.Item>*/}
-                    {/*<Menu.Item key="3">Option 6</Menu.Item>*/}
-                </SubMenu>
+                    </Menu.Item>
+                    <SubMenu key="sub2" icon={<AppstoreOutlined/>} title="Markalar">
+                        {
+                            SocketStore.data[0].files.map((item, key) => {
+                                return <Menu.Item key={item._id.make}>
+                                    {item._id.make}
+                                </Menu.Item>
+                            })
+                        }
+                    </SubMenu>
 
-            </Menu>
+                </Menu>
         );
     }
 }

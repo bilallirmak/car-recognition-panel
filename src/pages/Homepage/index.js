@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 // import AppStatistics from "../../components/AppStatistics";
 
-import {Row, Col, Spin, Tabs} from 'antd';
+import {Spin, Tabs} from 'antd';
 import Chart from '../../components/charts';
 import {inject, observer} from "mobx-react";
 
@@ -24,6 +24,7 @@ class Homepage extends Component {
                                 type='bar'
                                 option='make_numbers'
                                 title="Marka Sayıları"
+                                amount = "all"
                             />
                         </TabPane>
                         <TabPane tab="Model Sayıları" key="2">
@@ -31,6 +32,7 @@ class Homepage extends Component {
                                 type='bar'
                                 option='model_numbers'
                                 title="Model Sayıları"
+                                amount = "all"
                             />
                         </TabPane>
                         <TabPane tab="Renk dağılımı" key="3">
@@ -39,6 +41,7 @@ class Homepage extends Component {
                                 option='color_numbers'
                                 title="Renk dağılımı"
                                 hole = {.4}
+                                amount = "all"
                             />
                         </TabPane>
                         <TabPane tab="Şehir dağılımı" key="4">
@@ -47,12 +50,11 @@ class Homepage extends Component {
                                 option='license_plate_numbers'
                                 title="Renk dağılımı"
                                 hole = {.4}
+                                amount = "all"
                             />
                         </TabPane>
                     </Tabs>
                 </div>
-
-
                 :
                 <div>
                     <Spin/>

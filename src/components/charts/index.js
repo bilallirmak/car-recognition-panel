@@ -7,78 +7,71 @@ import {inject, observer} from "mobx-react";
 @inject('SocketStore')
 @observer
 class Charts extends Component {
-    state = {
-        x: null,
-        y: null
-    }
-
-    async componentDidMount() {
-        const {SocketStore} = this.props
-        console.log(this.props.type)
-        // await SocketStore.dataEditing(this.props.type)
-        const data_obj = SocketStore.options[this.props.option]()
-        this.setState({
-            x: data_obj.x,
-            y: data_obj.y
-        })
-    }
 
 
     render() {
-        const {SocketStore, title, type, hole} = this.props
-        const {x, y} = this.state
+        const {SocketStore, title, type, hole, option, amount, car} = this.props
+        const {x, y} = SocketStore.options[option](amount, car)
+
         return (
             SocketStore.data === null ?
                 <Spin/> :
-                <div>
-                    <Plot
-                        data={[
-                            {
-                                x,
-                                y,
-                                values: x,
-                                labels: y,
-                                hole,
-                                type,
-                                width: 0.7,
-                                mode: 'lines+markers',
-                                textposition: 'top center',
-                                marker: {
-                                    color: 'rgb(158,202,225)',
-                                    colors: y,
-                                    opacity: 0.6,
-                                    line: {
-                                        color: 'rgb(8,48,107)',
-                                        width: 1.5
-                                    }
-                                },
+                <Plot
+                    data={[
+                        {
+                            x, y,
+                            values: x,
+                            labels: y,
+                            hole,
+                            type,
+                            width: 0.7,
+                            mode: 'lines+markers',
+                            textposition: 'top center',
+                            marker: {
+                                color: 'rgb(158,202,225)',
+                                colors: y,
+                                opacity: 0.6,
+                                line: {
+                                    color: 'rgb(8,48,107)',
+                                    width: 1.5
+                                }
+                            },
 
-                            },
-                        ]}
-                        layout={{
-                            // width: 650, height: 500,
-                            title,
-                            base: 0,
-                            xaxis: {
-                                autotick: true,
-                                tickwidth: 1,
-                                dtick: 1,
-                            },
-                            yaxis: {
-                                autotick: false,
-                                tickwidth: 1,
-                                dtick: 1,
-                                zeroline: false,
-                            },
-                            bargap: 0.10
-                        }}
-                        config={{
-                            displayModeBar: false,
-                            responsive: true
-                        }}
+                        },
+                    ]}
+                    layout={{
+                        // width: 650, height: 500,
+                        title,
+                        xaxis: {
+                            autotick: true,
+                            tickwidth: 1,
+                            dtick: 1,
+                        },
+                        yaxis: {
+                            autotick: false,
+                            tickwidth: 1,
+                            dtick: 1,
+                            zeroline: false,
+                        },
+                        bargap: 0.10,
 
-                    />
-                </div>
+                        annotations: [{
+                            font: {
+                                size: 15
+                            },
+                            showarrow: false,
+                            text: type === 'pie' ? new Date().toLocaleDateString() : '',
+                            x: 0.5,
+                            y: 0.5
+                        }]
+                    }}
+                    config={{
+                        displayModeBar: false,
+                        // responsive: true,
+                    }}
+
+                />
+
         );
     }
 }
