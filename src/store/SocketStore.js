@@ -90,15 +90,15 @@ class SocketStore {
 
     @action
     async route(key, history) {
-        await localStorage.setItem('key', key)
-        if (key === '1') {
-            history.push('/')
-
-        } else {
-            history.push('/' + key)
-
-        }
-
+        // await localStorage.setItem('key', key)
+        // if (key === '/') {
+        //     history.push('/')
+        //
+        // } else {
+        //     history.push('/' + key)
+        //
+        // }
+        history.push(key)
     }
 
     options = {

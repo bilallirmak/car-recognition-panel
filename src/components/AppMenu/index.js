@@ -2,10 +2,12 @@ import React, {Component} from 'react';
 import {withRouter} from "react-router-dom";
 import {Menu, Spin} from 'antd';
 import {AppstoreOutlined} from '@ant-design/icons';
+import history from '../../history';
 
 import {inject, observer} from "mobx-react";
 
 const {SubMenu} = Menu;
+console.log(history, 'his')
 
 @inject('SocketStore')
 @observer
@@ -28,11 +30,11 @@ class Sider extends Component {
         }
     };
 
-    async componentDidMount() {
-        const {SocketStore} = this.props
-        await SocketStore.connect()
-
-    }
+    // async componentDidMount() {
+    //     const {SocketStore} = this.props
+    //     await SocketStore.connect()
+    //
+    // }
 
     render() {
         const {SocketStore} = this.props
@@ -42,19 +44,19 @@ class Sider extends Component {
                     onClick={({key}) => {
                         SocketStore.route(key, this.props.history)
                     }}
-                    defaultSelectedKeys={localStorage.hasOwnProperty('key') ? [localStorage.getItem('key')] : ['1']}
+                    defaultSelectedKeys={[history.location.pathname]}
                     mode="inline"
                     openKeys={this.state.openKeys}
                     onOpenChange={this.onOpenChange}
                     style={{width: 256, margin: 50}}
                 >
-                    <Menu.Item key="1">
+                    <Menu.Item key="/">
                         Genel
                     </Menu.Item>
                     <SubMenu key="sub2" icon={<AppstoreOutlined/>} title="Markalar">
                         {
                             SocketStore.data[0].files.map((item, key) => {
-                                return <Menu.Item key={item._id.make}>
+                                return <Menu.Item key={'/' + item._id.make}>
                                     {item._id.make}
                                 </Menu.Item>
                             })
