@@ -19,15 +19,49 @@ class SocketStore {
 
     @action
     async connect() {
-        await this.get_data()
         this.socket.on('data', data => {
-            this.get_data()
+            runInAction(() => {
+                this.data[0].total_car_number++
+                this.data[0].models.push(data.model)
+                this.data[0].colors.push(data.color)
+                if (data.hasOwnProperty('license_plate')) {
+                    this.data[0].license_plates.push(data.license_plate.slice(0,2))
+                }
+                this.car = this.data[0].files.find(item => item._id.make === data.make)
+                if (this.car) {
+                    this.car.total_car++
+                    this.car.models.push(data.model)
+                    this.car.colors.push(data.color)
+                    if (data.hasOwnProperty('license_plate')) {
+                        this.car.license_plates.push(data.license_plate.slice(0,2))
+                    }
+
+                } else {
+                    const obj = {
+                        _id: {
+                            make: data.make,
+                        },
+                        total_car: 1,
+                        models: [data.model],
+                        colors: [data.color],
+                        license_plates: data.license_plate ? [data.license_plate.slice(0,2)] : null
+
+                    }
+                    runInAction(() => {
+                        this.data[0].files.push(obj)
+                    })
+
+                }
+
+            });
+
+            // this.get_data()
             // runInAction(() => {
             //     this.data = this.data.concat(...data)
             //     console.log(this.data)
             // });
         });
-
+        await this.get_data()
     }
 
     @action
@@ -36,7 +70,6 @@ class SocketStore {
         runInAction(() => {
             this.data = data.cars
         })
-        // await this.dataEditing()
     }
 
     @action
