@@ -1,14 +1,13 @@
 import React, {Component} from "react";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import history from "./history";
-import {Spin} from "antd";
+import {Spin, Col, Row} from "antd";
 
 import Homepage from './pages/Homepage';
 import Makes from './pages/Makes';
 import AppMenu from "./components/AppMenu";
 import AppStatistics from './components/AppStatistics';
-
-import {Col, Row} from "antd";
+import AppHeader from './components/AppHeader';
 
 
 import {inject, observer} from "mobx-react";
@@ -28,6 +27,7 @@ class AppRouter extends Component {
         return (
             SocketStore.data !== null ?
                 <Router history={history}>
+                    <AppHeader/>
                     <Row>
                         <Col span={5}>
                             <AppMenu/>
@@ -45,10 +45,14 @@ class AppRouter extends Component {
                 <div style={{
                     height: '100vh',
                     display: "flex",
+                    flexDirection: 'column',
                     justifyContent: "center",
                     alignItems: 'center',
                     border: '1px solid red'
                 }}>
+                    <h1 style={{position: 'absolute', top: 130, fontSize: 70, fontFamily: 'Arial'}}>
+                        AKILLI VERİ TOPLAMA - PANEL
+                    </h1>
                     <Spin size={'large'}/>
                 </div>
         );

@@ -1,13 +1,11 @@
 import React, {Component} from 'react';
 import {withRouter} from "react-router-dom";
-import {Menu, Spin} from 'antd';
+import {Menu} from 'antd';
 import {AppstoreOutlined} from '@ant-design/icons';
 import history from '../../history';
-
 import {inject, observer} from "mobx-react";
 
 const {SubMenu} = Menu;
-console.log(history, 'his')
 
 @inject('SocketStore')
 @observer
@@ -30,16 +28,10 @@ class Sider extends Component {
         }
     };
 
-    // async componentDidMount() {
-    //     const {SocketStore} = this.props
-    //     await SocketStore.connect()
-    //
-    // }
-
     render() {
         const {SocketStore} = this.props
         return (
-            SocketStore.data === null ? <Spin/> :
+            <div>
                 <Menu
                     onClick={({key}) => {
                         SocketStore.route(key, this.props.history)
@@ -64,6 +56,8 @@ class Sider extends Component {
                     </SubMenu>
 
                 </Menu>
+            </div>
+
         );
     }
 }
